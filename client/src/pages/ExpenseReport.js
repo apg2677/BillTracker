@@ -6,20 +6,23 @@ import Book from "../components/Book";
 import Footer from "../components/Footer";
 import { Col, Row, Container } from "../components/Grid";
 import { List } from "../components/List";
-import Report from "../components/Report/ExpenseReport"
+import Report from "../components/Report/ExpenseReport";
 import axios from "axios";
 
 class ExpenseReport extends Component {
 
   state = {
-    p:"",
-    q:"",
-    r:"",
-    s:"",
-    t:"",
-    u:"",
-    v:""
+    p: "",
+    q: "",
+    r: "",
+    s: "",
+    t: "",
+    u: "",
+    v: ""
   };
+  componentDidMount() {
+    this.getData();
+  }
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -31,7 +34,7 @@ class ExpenseReport extends Component {
     event.preventDefault();
     axios.post("/api/expense", {
       month: this.state.p,
-      year:2019,
+      year: 2019,
       rentMortgage: this.state.q,
       insurance: this.state.v,
       tax: this.state.r,
@@ -41,10 +44,32 @@ class ExpenseReport extends Component {
 
     }).then(res => {
       console.log(res);
-
-    }).catch(error=> {
+      this.getData();
+     
+    }).catch(error => {
       console.log(error);
     })
+  }
+
+
+
+  getData() {
+    axios.get("/api/expense").then(res => {
+      res = res.data;
+      const resLen = res.length - 1;
+      console.log("resLen: " + resLen);
+      console.log(res[resLen].payroll);
+      this.setState({
+        expenseData: [
+          ["Expense", "Amount"],
+          ["advertising", res[resLen].advertising],
+          ["insurance", res[resLen].insurance],
+          ["payroll", res[resLen].payroll],
+          ["rentMortgage", res[resLen].rentMortgage],
+          ["utilities", res[resLen].utilities]
+        ]
+      });
+    });
   }
 
   render() {
@@ -60,7 +85,7 @@ class ExpenseReport extends Component {
               </h1>
               <h2 className="text-center">Input Your Expenses for Data Insights</h2>
             </Jumbotron>
-            
+
           </Col>
 
           <Col size="md-12">
@@ -68,7 +93,7 @@ class ExpenseReport extends Component {
               <Form
                 handleInputChange={this.handleInputChange}
                 handleFormSubmit={this.handleFormSubmit}
-                q={this.state.q}
+                
               />
             </Card>
           </Col>
@@ -78,19 +103,19 @@ class ExpenseReport extends Component {
           <Col size="md-12">
             <Card title="Current Insights" icon="fas fa-chart-pie">
 
-            <Row>
-              <Col size="md-12">
+              <Row>
+                <Col size="md-12">
 
-          <div align="center">
-          <Report></Report>
+                  <div align="center">
+                    <Report expenseData={this.state.expenseData}></Report>
 
-                </div>
+                  </div>
 
                 </Col>
               </Row>
 
 
-              
+
 
 
             </Card>

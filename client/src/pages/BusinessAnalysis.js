@@ -8,33 +8,66 @@ import { Col, Row, Container } from "../components/Grid";
 import { List } from "../components/List";
 import Expense from "../components/Expense";
 import Quarter from "../components/Quarter";
-
+import Report from "../components/Report/ExpenseReport";
+import axios from "axios";
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 class BusinessAnalysis extends Component {
   state = {
-    expenses: []
+    expenseData: [
+      // ['Expense', 'Amount'],
+      // ['Advertising', 200],
+      // ['Insurance', 350],
+      // ['Payroll', 12000],
+      // ['Rent', 1500],
+      // ['Utilities', 1200],
+    ]
   };
 
   componentDidMount() {
-    this.getSavedExpenses();
+     // this.getSavedExpenses();
+    // console.log("Expenses BA:" + this.state.expenses);
+     this.getData();
+      console.log("BA Data: " + JSON.stringify(this.state.expenseData));
   }
 
-  getSavedExpenses = () => {
-    API.getSavedExpenses()
-      .then(res =>
-        this.setState({
-          expenses: res.data
-        })
-      )
-      .catch(err => console.log(err));
-  };
+  // getSavedExpenses = () => {
+  //   API.getSavedExpenses()
+  //     .then(res =>
+  //       this.setState({
+  //         expenses: res.data
+  //       })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
-  handleExpenseDelete = id => {
-    API.deleteExpense(id).then(res => this.getSavedExpenses());
-  };
+  getData() {
+    axios.get("/api/expense").then(res => {
+      res = res.data;
+      console.log("Res Data:" + JSON.stringify(res[0]));
+
+      const resLen = res.length - 1;
+      console.log("resLen: " + resLen);
+      console.log(res[resLen].payroll);
+      this.setState({
+        expenseData: [
+          ["Expense", "Amount"],
+          ["advertising", res[resLen].advertising],
+          ["insurance", res[resLen].insurance],
+          ["payroll", res[resLen].payroll],
+          ["rentMortgage", res[resLen].rentMortgage],
+          ["utilities", res[resLen].utilities],
+        ]
+      });
+    });
+  }
+
+
+  // handleExpenseDelete = id => {
+  //   API.deleteExpense(id).then(res => this.getSavedExpenses());
+  // };
 
   render() {
     return (
@@ -55,111 +88,12 @@ class BusinessAnalysis extends Component {
           <Col size="md-12">
             
             <Card title="Visuals" icon="fas fa-money-check-alt">
-
-              <Quarter>
-
-                <Row>
-                  <Col size="md-6">
-
-                <div>
-                <Chart className="febChart"
-                  width={'500px'}
-                  height={'300px'}
-                  chartType="PieChart"
-                  data={[
-                    ['Expense', 'Amount'],
-                    ['Advertising', 200],
-                    ['Insurance', 350],
-                    ['Payroll', 12000],
-                    ['Rent', 1500],
-                    ['Utilities', 1200],
-                  ]}
-                  options={{
-                    title: 'February Expense Report',
-                    is3D: true,
-                  }}
-                  rootProps={{ 'data-testid': '2' }}
-                />
-                </div>
-
-                </Col>
-
-                <Col size="md-6">
-                  <Chart
-                    width={'500px'}
-                    height={'300px'}
-                    chartType="PieChart"
-                    data={[
-                      ['Expense', 'Amount'],
-                      ['Advertising', 150],
-                      ['Insurance', 350],
-                      ['Payroll', 11000],
-                      ['Rent', 1500],
-                      ['Utilities', 1000],
-                    ]}
-                    options={{
-                      title: 'March Expense Report', 
-                      is3D: true,
-                    }}
-                    rootProps={{ 'data-testid': '2' }}
-                  />
-
-                </Col>
-              </Row>
-
-              <Row>
-                <Col size="md-6">
-
-                  <Chart
-                    width={'500px'}
-                    height={'300px'}
-                    chartType="PieChart"
-                    data={[
-                      ['Expense', 'Amount'],
-                      ['Advertising', 100],
-                      ['Insurance', 350],
-                      ['Payroll', 10000],
-                      ['Rent', 1500],
-                      ['Utilities', 800],
-                    ]}
-                    options={{
-                      title: 'April Expense Report', 
-                      is3D: true,
-                    }}
-                    rootProps={{ 'data-testid': '2' }}
-                  />
-
-                  </Col>
-
-                  <Col size="md-6">
-
-                    <Chart
-                      width={'500px'}
-                      height={'300px'}
-                      chartType="PieChart"
-                      data={[
-                        ['Expense', 'Amount'],
-                        ['Advertising', 50],
-                        ['Insurance', 350],
-                        ['Payroll', 10500],
-                        ['Rent', 1500],
-                        ['Utilities', 900],
-                      ]}
-                      options={{
-                        title: 'May Expense Report', 
-                        is3D: true,
-                      }}
-                      rootProps={{ 'data-testid': '2' }}
-                    />
-
-                </Col>
-              </Row>
-
-              </Quarter>
+            <Report expenseData={this.state.expenseData}></Report>
+              
 
 
 
-              {this.state.expenses.length ? (
+              {/* {this.state.expenses.length ? (
                 <List>
                   {this.state.expenses.map(expense => (
                     <Expense
@@ -187,7 +121,7 @@ class BusinessAnalysis extends Component {
                   <br></br>
                   <h2 className="text-center">Visual Insights</h2>
                 </div>
-                )}
+                )} */}
             </Card>
 
           </Col>
@@ -200,4 +134,103 @@ class BusinessAnalysis extends Component {
 
 export default BusinessAnalysis;
 
+{/* <Quarter>
 
+<Row>
+  <Col size="md-6">
+
+<div>
+<Chart className="febChart"
+  width={'500px'}
+  height={'300px'}
+  chartType="PieChart"
+  data={[
+    ['Expense', 'Amount'],
+    ['Advertising', 200],
+    ['Insurance', 350],
+    ['Payroll', 12000],
+    ['Rent', 1500],
+    ['Utilities', 1200],
+  ]}
+  options={{
+    title: 'February Expense Report',
+    is3D: true,
+  }}
+  rootProps={{ 'data-testid': '2' }}
+/>
+</div>
+
+</Col>
+
+<Col size="md-6">
+  <Chart
+    width={'500px'}
+    height={'300px'}
+    chartType="PieChart"
+    data={[
+      ['Expense', 'Amount'],
+      ['Advertising', 150],
+      ['Insurance', 350],
+      ['Payroll', 11000],
+      ['Rent', 1500],
+      ['Utilities', 1000],
+    ]}
+    options={{
+      title: 'March Expense Report', 
+      is3D: true,
+    }}
+    rootProps={{ 'data-testid': '2' }}
+  />
+
+</Col>
+</Row>
+
+<Row>
+<Col size="md-6">
+
+  <Chart
+    width={'500px'}
+    height={'300px'}
+    chartType="PieChart"
+    data={[
+      ['Expense', 'Amount'],
+      ['Advertising', 100],
+      ['Insurance', 350],
+      ['Payroll', 10000],
+      ['Rent', 1500],
+      ['Utilities', 800],
+    ]}
+    options={{
+      title: 'April Expense Report', 
+      is3D: true,
+    }}
+    rootProps={{ 'data-testid': '2' }}
+  />
+
+  </Col>
+
+  <Col size="md-6">
+
+    <Chart
+      width={'500px'}
+      height={'300px'}
+      chartType="PieChart"
+      data={[
+        ['Expense', 'Amount'],
+        ['Advertising', 50],
+        ['Insurance', 350],
+        ['Payroll', 10500],
+        ['Rent', 1500],
+        ['Utilities', 900],
+      ]}
+      options={{
+        title: 'May Expense Report', 
+        is3D: true,
+      }}
+      rootProps={{ 'data-testid': '2' }}
+    />
+
+</Col>
+</Row>
+
+</Quarter> */}

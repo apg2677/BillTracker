@@ -18,7 +18,8 @@ class ExpenseReport extends Component {
     s: "",
     t: "",
     u: "",
-    v: ""
+    v: "",
+    y:""
   };
   componentDidMount() {
     this.getData();
@@ -34,7 +35,7 @@ class ExpenseReport extends Component {
     event.preventDefault();
     axios.post("/api/expense", {
       month: this.state.p,
-      year: 2019,
+      year: this.state.y,
       rentMortgage: this.state.q,
       insurance: this.state.v,
       tax: this.state.r,
@@ -113,11 +114,6 @@ class ExpenseReport extends Component {
 
                 </Col>
               </Row>
-
-
-
-
-
             </Card>
           </Col>
         </Row>

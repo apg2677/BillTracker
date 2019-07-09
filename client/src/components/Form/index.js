@@ -4,7 +4,7 @@ import { Link} from "react-router-dom";
 import "./style.css";
 
 
-function Form({ p,q, r, s, t,u,v, handleInputChange, handleFormSubmit }) {
+function Form({ p,y,q, r, s, t,u,v, handleInputChange, handleFormSubmit }) {
   return (
     <form>
       <div className="form-group">
@@ -18,6 +18,16 @@ function Form({ p,q, r, s, t,u,v, handleInputChange, handleFormSubmit }) {
           value={p}
           placeholder="Month"
           name="p"
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="form-control"
+          id="year"
+          type="text"
+          value={y}
+          placeholder="Year"
+          name="y"
           onChange={handleInputChange}
           required
         />
@@ -98,13 +108,7 @@ function Form({ p,q, r, s, t,u,v, handleInputChange, handleFormSubmit }) {
 
         &nbsp;&nbsp;
 
-        {/* <button
-          onClick={handleFormSubmit}
-          type="submit"
-          className="btn btn-lg btn-primary"
-        >
-          Review Your Quarterly Expenses
-        </button> */}
+      
         <Link className="btn btn-lg btn-primary" to="/businessanalysis"> Review Your Quarterly Expenses</Link>
       </div>
     </form>

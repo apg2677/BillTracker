@@ -8,7 +8,7 @@ export default {
 
   // Gets all saved expenses
   getSavedExpenses: function() {
-    return axios.get("/api/expenses/");
+    return axios.get("/api/expense/");
   },
 
   // Deletes the saved expense with the given id

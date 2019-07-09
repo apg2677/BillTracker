@@ -7,32 +7,8 @@ import axios from "axios";
 
 
 class Report extends Component {
-    // state = {
-    //     expenseData: [["Expense", "Amount"],
-    //     ["advertising", 0],
-    //     ["insurance", 0],
-    //     ["payroll", 0],
-    //     ["rentMortgage", 0],
-    //     ["utilities", 0]]
-    // }
+ 
     state = {expenseData:this.props.expenseData};
-
-    // componentDidMount() {
-
-    //     this.setState({expenseData: [
-    //         ["Expense", "Amount"],
-    //         ["advertising", 20],
-    //         ["insurance", 20],
-    //         ["payroll", 20],
-    //         ["rentMortgage", 20],
-    //         ["utilities", 20]
-    //     ]})
-    //     this.getData();
-
-    //    console.log("Report mounted");
-    // }
-
-    
 
     getData() {
         axios.get("/api/expense").then(res => {
@@ -82,11 +58,3 @@ class Report extends Component {
 
 export default Report;
 
-// expenseData : [
-//     ["Expense", "Amount"],
-//     ["advertising", res[0].advertising],
-//     ["insurance", res[0].insurance],
-//     ["payroll", res[0].payroll],
-//     ["rentMortgage", res[0].rentMortgage],
-//     ["utilities", res[0].utilities]
-// ]

@@ -10,39 +10,19 @@ import Expense from "../components/Expense";
 import Quarter from "../components/Quarter";
 import Report from "../components/Report/ExpenseReport";
 import axios from "axios";
+import QtrSel from "../components/QtrSelect";
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 class BusinessAnalysis extends Component {
   state = {
-    expenseData: [
-      // ['Expense', 'Amount'],
-      // ['Advertising', 200],
-      // ['Insurance', 350],
-      // ['Payroll', 12000],
-      // ['Rent', 1500],
-      // ['Utilities', 1200],
-    ]
+    expenseData: []
   };
 
   componentDidMount() {
-     // this.getSavedExpenses();
-    // console.log("Expenses BA:" + this.state.expenses);
      this.getData();
-      console.log("BA Data: " + JSON.stringify(this.state.expenseData));
   }
-
-  // getSavedExpenses = () => {
-  //   API.getSavedExpenses()
-  //     .then(res =>
-  //       this.setState({
-  //         expenses: res.data
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
   getData() {
     axios.get("/api/expense").then(res => {
       res = res.data;
@@ -71,8 +51,9 @@ class BusinessAnalysis extends Component {
 
   render() {
     return (
-
+      
       <Container>
+        <QtrSel/>
         <Row>
           <Col size="md-12">
             <Jumbotron>

@@ -40,8 +40,8 @@ app.use((req, res, next) => {
 //EXPENSE PATHS ================
 app.post("/api/expense", expenseController.create);
 app.get("/api/expense", expenseController.read);
-app.get("/api/expense/:mon", expenseController.findByMonth);
-
+// app.get("/api/expense/:mon", expenseController.findByMonth);
+app.get("/api/expense/:qtr", expenseController.readByQtr);
 //USER PATHS ================
 app.post("/api/user", userController.create);
 app.post("/api/user/login", userController.login);

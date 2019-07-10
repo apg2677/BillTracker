@@ -12,6 +12,7 @@ import Report from "../components/Report/ExpenseReport";
 import axios from "axios";
 import QtrSel from "../components/QtrSelect";
 
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -21,7 +22,7 @@ class BusinessAnalysis extends Component {
   };
 
   componentDidMount() {
-     this.getData();
+    this.getData();
   }
   getData() {
     axios.get("/api/expense").then(res => {
@@ -50,10 +51,19 @@ class BusinessAnalysis extends Component {
   // };
 
   render() {
+    
     return (
-      
+
       <Container>
-        <QtrSel/>
+
+
+        <select id="quarter" name="quarter" className="form-control">
+          <option selected value={1} >Qtr 1</option>
+          <option value={2}>Qtr 2</option>
+          <option value={3}>Qtr 3</option>
+          <option calue={4}>Qtr 4</option>
+        </select>
+
         <Row>
           <Col size="md-12">
             <Jumbotron>
@@ -67,42 +77,33 @@ class BusinessAnalysis extends Component {
         </Row>
         <Row>
           <Col size="md-12">
-            
+
             <Card title="Visuals" icon="fas fa-money-check-alt">
-            <Report expenseData={this.state.expenseData}></Report>
-              
 
-
-
-              {/* {this.state.expenses.length ? (
-                <List>
-                  {this.state.expenses.map(expense => (
-                    <Expense
-                      key={expense._id}
-                      month={expense.month}
-                      year={expense.year}
-                      rentMortgage={expense.rentMortgage}
-                      insurance={expense.insurance}
-                      payroll={expense.payroll}
-                      advertising={expense.advertising}
-                      utilities={expense.utilities}
-                      Button={() => (
-                        <button
-                          onClick={() => this.handleExpenseDelete(expense._id)}
-                          className="btn btn-danger ml-2"
-                        >
-                          Delete
-                        </button>
-                      )}
-                    />
-                  ))}
-                </List>
-              ) : (
-                <div>
-                  <br></br>
-                  <h2 className="text-center">Visual Insights</h2>
-                </div>
-                )} */}
+              <Row>
+                <Col size="md-6">
+                  <div>
+                    <Report expenseData={this.state.expenseData}></Report>
+                  </div>
+                </Col>
+                <Col size="md-6">
+                  <div>
+                    <Report expenseData={this.state.expenseData}></Report>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-6">
+                  <div>
+                    <Report expenseData={this.state.expenseData}></Report>
+                  </div>
+                </Col>
+                <Col size="md-6">
+                  <div>
+                    <Report expenseData={this.state.expenseData}></Report>
+                  </div>
+                </Col>
+              </Row>
             </Card>
 
           </Col>

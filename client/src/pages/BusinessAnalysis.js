@@ -18,14 +18,17 @@ const Schema = mongoose.Schema;
 
 class BusinessAnalysis extends Component {
   state = {
-    expenseData: []
+    expenseData1: [],
+    expenseData2: [],
+    expenseData3: [],
+    expenseData4: []
   };
 
   componentDidMount() {
     this.getData();
   }
   getData() {
-    axios.get("/api/expense").then(res => {
+    axios.get("/api/expense/2").then(res => {
       res = res.data;
       console.log("Res Data:" + JSON.stringify(res[0]));
 
@@ -33,13 +36,37 @@ class BusinessAnalysis extends Component {
       console.log("resLen: " + resLen);
       console.log(res[resLen].payroll);
       this.setState({
-        expenseData: [
+        expenseData1: [
           ["Expense", "Amount"],
-          ["advertising", res[resLen].advertising],
-          ["insurance", res[resLen].insurance],
-          ["payroll", res[resLen].payroll],
-          ["rentMortgage", res[resLen].rentMortgage],
-          ["utilities", res[resLen].utilities],
+          ["advertising", res[0].advertising],
+          ["insurance", res[0].insurance],
+          ["payroll", res[0].payroll],
+          ["rentMortgage", res[0].rentMortgage],
+          ["utilities", res[0].utilities],
+        ],
+        expenseData2: [
+          ["Expense", "Amount"],
+          ["advertising", res[1].advertising],
+          ["insurance", res[1].insurance],
+          ["payroll", res[1].payroll],
+          ["rentMortgage", res[1].rentMortgage],
+          ["utilities", res[1].utilities],
+        ],
+        expenseData3: [
+          ["Expense", "Amount"],
+          ["advertising", res[2].advertising],
+          ["insurance", res[2].insurance],
+          ["payroll", res[2].payroll],
+          ["rentMortgage", res[2].rentMortgage],
+          ["utilities", res[2].utilities],
+        ],
+        expenseData4: [
+          ["Expense", "Amount"],
+          ["advertising", res[3].advertising],
+          ["insurance", res[3].insurance],
+          ["payroll", res[3].payroll],
+          ["rentMortgage", res[3].rentMortgage],
+          ["utilities", res[3].utilities],
         ]
       });
     });
@@ -83,24 +110,24 @@ class BusinessAnalysis extends Component {
               <Row>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData}></Report>
+                    <Report expenseData={this.state.expenseData1}></Report>
                   </div>
                 </Col>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData}></Report>
+                    <Report expenseData={this.state.expenseData2}></Report>
                   </div>
                 </Col>
               </Row>
               <Row>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData}></Report>
+                    <Report expenseData={this.state.expenseData3}></Report>
                   </div>
                 </Col>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData}></Report>
+                    <Report expenseData={this.state.expenseData4}></Report>
                   </div>
                 </Col>
               </Row>

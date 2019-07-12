@@ -72,6 +72,10 @@ class BusinessAnalysis extends Component {
       });
     });
   }
+  
+  handleQtr()  {
+    alert("test!");
+  };
 
 
 
@@ -82,7 +86,7 @@ class BusinessAnalysis extends Component {
       <Container>
 
 
-        <select id="quarter" name="quarter" className="form-control">
+        <select onChange={this.handleQtr} id="quarter" name="quarter" className="form-control">
           <option selected value={1} >Qtr 1</option>
           <option value={2}>Qtr 2</option>
           <option value={3}>Qtr 3</option>

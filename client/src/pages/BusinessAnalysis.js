@@ -21,14 +21,15 @@ class BusinessAnalysis extends Component {
     expenseData1: [],
     expenseData2: [],
     expenseData3: [],
-    expenseData4: []
+    expenseData4: [],
+    qtr : 2
   };
 
   componentDidMount() {
     this.getData();
   }
   getData() {
-    axios.get("/api/expense/2").then(res => {
+    axios.get(`/api/expense/${this.state.qtr}`).then(res => {
       res = res.data;
       console.log("Res Data:" + JSON.stringify(res[0]));
 
@@ -73,9 +74,6 @@ class BusinessAnalysis extends Component {
   }
 
 
-  // handleExpenseDelete = id => {
-  //   API.deleteExpense(id).then(res => this.getSavedExpenses());
-  // };
 
   render() {
     
@@ -143,103 +141,3 @@ class BusinessAnalysis extends Component {
 
 export default BusinessAnalysis;
 
-{/* <Quarter>
-
-<Row>
-  <Col size="md-6">
-
-<div>
-<Chart className="febChart"
-  width={'500px'}
-  height={'300px'}
-  chartType="PieChart"
-  data={[
-    ['Expense', 'Amount'],
-    ['Advertising', 200],
-    ['Insurance', 350],
-    ['Payroll', 12000],
-    ['Rent', 1500],
-    ['Utilities', 1200],
-  ]}
-  options={{
-    title: 'February Expense Report',
-    is3D: true,
-  }}
-  rootProps={{ 'data-testid': '2' }}
-/>
-</div>
-
-</Col>
-
-<Col size="md-6">
-  <Chart
-    width={'500px'}
-    height={'300px'}
-    chartType="PieChart"
-    data={[
-      ['Expense', 'Amount'],
-      ['Advertising', 150],
-      ['Insurance', 350],
-      ['Payroll', 11000],
-      ['Rent', 1500],
-      ['Utilities', 1000],
-    ]}
-    options={{
-      title: 'March Expense Report', 
-      is3D: true,
-    }}
-    rootProps={{ 'data-testid': '2' }}
-  />
-
-</Col>
-</Row>
-
-<Row>
-<Col size="md-6">
-
-  <Chart
-    width={'500px'}
-    height={'300px'}
-    chartType="PieChart"
-    data={[
-      ['Expense', 'Amount'],
-      ['Advertising', 100],
-      ['Insurance', 350],
-      ['Payroll', 10000],
-      ['Rent', 1500],
-      ['Utilities', 800],
-    ]}
-    options={{
-      title: 'April Expense Report', 
-      is3D: true,
-    }}
-    rootProps={{ 'data-testid': '2' }}
-  />
-
-  </Col>
-
-  <Col size="md-6">
-
-    <Chart
-      width={'500px'}
-      height={'300px'}
-      chartType="PieChart"
-      data={[
-        ['Expense', 'Amount'],
-        ['Advertising', 50],
-        ['Insurance', 350],
-        ['Payroll', 10500],
-        ['Rent', 1500],
-        ['Utilities', 900],
-      ]}
-      options={{
-        title: 'May Expense Report', 
-        is3D: true,
-      }}
-      rootProps={{ 'data-testid': '2' }}
-    />
-
-</Col>
-</Row>
-
-</Quarter> */}

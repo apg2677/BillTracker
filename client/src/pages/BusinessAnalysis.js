@@ -23,13 +23,13 @@ class BusinessAnalysis extends Component {
     expenseData3: [],
     expenseData4: [],
     qtr : 2
-  };
-
-  componentDidMount() {
-    this.getData();
   }
-  getData() {
-    axios.get(`/api/expense/${this.state.qtr}`).then(res => {
+  handleQtr = this.handleQtr.bind(this);
+  componentDidMount() {
+    this.getData(1);
+  }
+  getData(q) {
+    axios.get(`/api/expense/${this.state.q}`).then(res => {
       res = res.data;
       console.log("Res Data:" + JSON.stringify(res[0]));
 
@@ -73,8 +73,11 @@ class BusinessAnalysis extends Component {
     });
   }
   
-  handleQtr()  {
-    alert("test!");
+  handleQtr(event)  {
+    let newQtr = event.target.value;
+    this.setState({qtr : event.target.value});
+    alert(newQtr);
+    this.getData(newQtr);
   };
 
 

@@ -22,14 +22,14 @@ class BusinessAnalysis extends Component {
     expenseData2: [],
     expenseData3: [],
     expenseData4: [],
-    qtr : 2
+    qtr: null
   }
   handleQtr = this.handleQtr.bind(this);
   componentDidMount() {
     this.getData(1);
   }
-  getData(q) {
-    axios.get(`/api/expense/${this.state.q}`).then(res => {
+  getData(qtr) {
+    axios.get(`/api/expense/${this.state.qtr}`).then(res => {
       res = res.data;
       console.log("Res Data:" + JSON.stringify(res[0]));
 
@@ -74,10 +74,13 @@ class BusinessAnalysis extends Component {
   }
   
   handleQtr(event)  {
-    let newQtr = event.target.value;
+    console.log("Inside HandleQtr");
+    var newQtr = event.target.value;
     this.setState({qtr : event.target.value});
-    alert(newQtr);
+    // alert(newQtr);
+    console.log("\t" + newQtr);
     this.getData(newQtr);
+
   };
 
 
@@ -93,7 +96,7 @@ class BusinessAnalysis extends Component {
           <option selected value={1} >Qtr 1</option>
           <option value={2}>Qtr 2</option>
           <option value={3}>Qtr 3</option>
-          <option calue={4}>Qtr 4</option>
+          <option value={4}>Qtr 4</option>
         </select>
 
         <Row>

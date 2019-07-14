@@ -18,6 +18,7 @@ module.exports = {
     },
     readByQtr: (req, res) => {
         var qtr = req.params.qtr;
+        // qtr = 1;
         console.log("Quarter: " + qtr);
          var b = 0;
          var e = 0;
@@ -29,6 +30,7 @@ module.exports = {
 }
 
 function SwitchQtr(qtr, b, e) {
+    console.log("Inside Switch Qtr:" + qtr);
     if (qtr == 1) {
         b = 0;
         e = 4;
@@ -45,6 +47,9 @@ function SwitchQtr(qtr, b, e) {
         b = 9;
         e = 13;
     }
+    console.log("B: " + b);
+    console.log("E: " + e);
+    
     return { b, e };
 }
 

@@ -124,7 +124,12 @@ module.exports = {
 
     login: function(req, res) {
         db.User.findOne(req.body)
-            .then(dbUser => res.json(dbUser))
+            .then(dbUser => {
+                res.json(dbUser);
+                console.log("Request Body:" + JSON.stringify(req.body));
+                console.log("Inside Login");
+                console.log("\t"+ dbUser);
+            })
             .catch(err => res.status(422).json(err));
     },
 

@@ -30,9 +30,9 @@ class LogIn extends Component {
             password: this.state.password
         })
             .then(response => {
-                console.log(response);
+                console.log("Login Response:" + JSON.stringify(response));
 
-                if (response) {
+                if (response.data!==null) {
                     console.log("Successful Log In.");
                     // this.updateUser({
                     //     loggedIn: true,
@@ -45,12 +45,16 @@ class LogIn extends Component {
                     })
                 } else {
                     console.log("Log In Error");
-
+                    this.setState({
+                        username: "",
+                        password: "",
+                        redirectTo: "/signup"
+                    })
                 }
             }).catch(error => {
                 console.log("Log In Server Error!");
                 console.log(error);
-
+                
             })
     }
 

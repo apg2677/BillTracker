@@ -23,7 +23,8 @@ module.exports = {
          var b = 0;
          var e = 0;
          ({ b, e } = SwitchQtr(qtr, b, e));
-        db.Expenses.find({$and:[{month:{$gt:b}}, {month:{$lt:e}}]})
+        var query = {$and:[{month:{$gte:b}}, {month:{$lte:e}}]};
+        db.Expenses.find(query)
             .then(dbExpense => res.json(dbExpense))
             .catch(err=> res.status(422).json(err));
     }
@@ -32,20 +33,20 @@ module.exports = {
 function SwitchQtr(qtr, b, e) {
     console.log("Inside Switch Qtr:" + qtr);
     if (qtr == 1) {
-        b = 0;
-        e = 4;
+        b = 1;
+        e = 3;
     }
     else if (qtr == 2) {
-        b = 3;
-        e = 7;
+        b = 4;
+        e = 6;
     }
     else if (qtr == 3) {
-        b = 6;
-        e = 10;
+        b = 7;
+        e = 9;
     }
     else {
-        b = 9;
-        e = 13;
+        b = 10;
+        e = 12;
     }
     console.log("B: " + b);
     console.log("E: " + e);

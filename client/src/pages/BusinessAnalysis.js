@@ -22,11 +22,17 @@ class BusinessAnalysis extends Component {
     expenseData2: [],
     expenseData3: [],
     expenseData4: [],
-    qtr: null
+    qtr: 1,
+    month:0
   }
   handleQtr = this.handleQtr.bind(this);
   componentDidMount() {
-    this.getData(1);
+   // this.handleQtr();
+   this.getData(this.state.qtr);
+  }
+
+  componentWillMount() {
+    // this.getData(this.state.qtr);
   }
   getData(qtr) {
     axios.get(`/api/expense/${this.state.qtr}`).then(res => {
@@ -68,7 +74,11 @@ class BusinessAnalysis extends Component {
           ["payroll", res[3].payroll],
           ["rentMortgage", res[3].rentMortgage],
           ["utilities", res[3].utilities],
-        ]
+        ],
+        mon1: res[0].month,
+        mon2: res[1].month,
+        mon3:res[2].month,
+        mon4:res[3].month
       });
     });
   }
@@ -76,11 +86,11 @@ class BusinessAnalysis extends Component {
   handleQtr(event)  {
     console.log("Inside HandleQtr");
     var newQtr = event.target.value;
-    this.setState({qtr : event.target.value});
+    this.setState({...this.state, qtr : newQtr});
     // alert(newQtr);
     console.log("\t" + newQtr);
     this.getData(newQtr);
-
+    // this.forceUpdate();
   };
 
 
@@ -92,7 +102,7 @@ class BusinessAnalysis extends Component {
       <Container>
 
 
-        <select onChange={this.handleQtr} id="quarter" name="quarter" className="form-control">
+        <select value={this.state.qtr} onChange={this.handleQtr} id="quarter" name="quarter" className="form-control">
           <option selected value={1} >Qtr 1</option>
           <option value={2}>Qtr 2</option>
           <option value={3}>Qtr 3</option>
@@ -118,24 +128,24 @@ class BusinessAnalysis extends Component {
               <Row>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData1}></Report>
+                    <Report month={this.state.mon1} expenseData={this.state.expenseData1}></Report>
                   </div>
                 </Col>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData2}></Report>
+                    <Report month={this.state.mon2} expenseData={this.state.expenseData2}></Report>
                   </div>
                 </Col>
               </Row>
               <Row>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData3}></Report>
+                    <Report month={this.state.mon3} expenseData={this.state.expenseData3}></Report>
                   </div>
                 </Col>
                 <Col size="md-6">
                   <div>
-                    <Report expenseData={this.state.expenseData4}></Report>
+                    <Report month={this.state.mon4} expenseData={this.state.expenseData4}></Report>
                   </div>
                 </Col>
               </Row>

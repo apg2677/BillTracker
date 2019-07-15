@@ -3,11 +3,12 @@ import { Chart } from "react-google-charts";
 
 
 class Report extends Component {
- 
-
+    
+    
 
     render() {
-
+        var displayMonth = this.props.month;
+        console.log("Month: " + displayMonth);
         return (
             <div className="chart-container">
 
@@ -19,7 +20,7 @@ class Report extends Component {
                     height={'300px'}
 
                     options={{
-                        title: 'May Expense Report',
+                        title: displayMonth,
                         is3D: true,
                     }}
 

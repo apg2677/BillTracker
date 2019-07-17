@@ -30,6 +30,9 @@ class BusinessAnalysis extends Component {
    // this.handleQtr();
    this.getData(this.state.qtr);
   }
+  componentDidUpdate(prevProps, prevState) {
+    this.getData(this.state.qtr);
+  }
 
   componentWillMount() {
     // this.getData(this.state.qtr);
@@ -93,6 +96,14 @@ class BusinessAnalysis extends Component {
     // this.forceUpdate();
   };
 
+  // handleQtr(event)  {
+  //   console.log("Inside HandleQtr");
+  //   const {value} = event.target;
+  //   this.setState(function(prevState) {
+  //     return this.getData(value);
+  //   });
+   
+  // };
 
 
   render() {

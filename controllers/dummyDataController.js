@@ -109,7 +109,17 @@ module.exports = {
                 payroll: 12000,
                 advertising: 66,
                 utilities: 1200
+            },
+            {
+                month: 12,
+                year: 2019,
+                rentMortgage: 150,
+                insurance: 1200,
+                payroll: 12000,
+                advertising: 66,
+                utilities: 1200
             }
+
 
         )
     }

@@ -90,20 +90,11 @@ class BusinessAnalysis extends Component {
     console.log("Inside HandleQtr");
     var newQtr = event.target.value;
     this.setState({...this.state, qtr : newQtr});
-    // alert(newQtr);
+
     console.log("\t" + newQtr);
     this.getData(newQtr);
-    // this.forceUpdate();
+  
   };
-
-  // handleQtr(event)  {
-  //   console.log("Inside HandleQtr");
-  //   const {value} = event.target;
-  //   this.setState(function(prevState) {
-  //     return this.getData(value);
-  //   });
-   
-  // };
 
 
   render() {

@@ -78,14 +78,43 @@ class BusinessAnalysis extends Component {
           ["rentMortgage", res[3].rentMortgage],
           ["utilities", res[3].utilities],
         ],
-        mon1: res[0].month,
-        mon2: res[1].month,
-        mon3:res[2].month,
-        mon4:res[3].month
+      
+        mon1: this.displayMonth(res[0].month),
+        mon2: this.displayMonth(res[1].month),
+        mon3: this.displayMonth(res[2].month),
+        mon4: this.displayMonth(res[3].month)
       });
     });
   }
-  
+  displayMonth(mon) {
+    switch(mon) {
+      case 1:
+        return "January";
+      case 2:
+        return "February";
+      case 3:
+        return "March";
+      case 4:
+        return "April";
+      case 5:
+        return "May";
+      case 6:
+        return "June";
+      case 7:
+        return "July";
+      case 8: 
+        return "August";
+      case 9:
+        return "September";
+      case 10:
+        return "Octover";
+      case 11:
+        return "November";
+      case 12:
+        return "December";
+    }
+  }
+
   handleQtr(event)  {
     console.log("Inside HandleQtr");
     var newQtr = event.target.value;

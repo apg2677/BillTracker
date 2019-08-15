@@ -9,24 +9,42 @@ module.exports = {
     read: (req, res) => {
         db.Expenses.find({})
             .then(dbExpense => res.json(dbExpense))
-            .catch(err=> res.status(422).json(err));
+            .catch(err => res.status(422).json(err));
     },
     findByMonth: (req, res) => {
-        db.Expenses.findOne({month:req.params.mon})
+        db.Expenses.findOne({ month: req.params.mon })
             .then(dbExpense => res.json(dbExpense))
-            .catch(err=> res.status(422).json(err));
+            .catch(err => res.status(422).json(err));
     },
     readByQtr: (req, res) => {
         var qtr = req.params.qtr;
         // qtr = 1;
         console.log("Quarter: " + qtr);
-         var b = 0;
-         var e = 0;
-         ({ b, e } = SwitchQtr(qtr, b, e));
-        var query = {$and:[{month:{$gte:b}}, {month:{$lte:e}}, {year:2019}]};
-        db.Expenses.find(query).sort({month:1})
+        var b = 0;
+        var e = 0;
+        ({ b, e } = SwitchQtr(qtr, b, e));
+        var query = { $and: [{ month: { $gte: b } }, { month: { $lte: e } }, { year: 2019 }] };
+
+
+        // var query = {$group: {
+        //                       _id: "$month",
+        //                       month: { $last: "$month" },
+        //                       rentMortgage: { $last: "$rentMortgage" },
+        //                       insurance: { $last: "$insurance" },
+        //                       payroll: { $last: "$payroll" },
+        //                       advertising: { $last: "$advertising" },
+        //                       utilities: { $last: "utilities" } }};
+
+        //     db.Expenses.aggregate([query]).sort({ month: 1 })
+        //     .then(dbExpense => {
+        //         console.log("dbExpense: " + JSON.stringify(dbExpense));
+        //         res.json(dbExpense);
+        //     })
+        //     .catch(err => res.status(422).json(err));
+            
+            db.Expenses.find(query).sort({ month: 1 })
             .then(dbExpense => res.json(dbExpense))
-            .catch(err=> res.status(422).json(err));
+            .catch(err => res.status(422).json(err));
     }
 }
 
@@ -50,7 +68,7 @@ function SwitchQtr(qtr, b, e) {
     }
     console.log("B: " + b);
     console.log("E: " + e);
-    
+
     return { b, e };
 }
 

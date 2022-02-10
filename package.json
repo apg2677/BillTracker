@@ -27,7 +27,7 @@
     "fsevents": "^2.0.7",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "print-js": "^1.0.61"
